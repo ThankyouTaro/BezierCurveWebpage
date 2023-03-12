@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <body style = "text-align: center;">
+        <h1 style="color:aquamarine">
+            Bezier Curve
+        </h1>
+        <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3">
+        Your browser does not support the HTML5 canvas tag.</canvas>
+        <p>
+            Input the value in x and y axis.
+        </p>
+        <p>
+            x1:<input type="number" id="x1" values="10">
+            y1:<input type="number" id="y1" values="10">            
+        </p>
+        <p>
+            x2:<input type="number" id="x2" values="10">
+            y2:<input type="number" id="y2" values="400">
+        </p>   
+        <p>
+            x3:<input type="number" id="x3" values="400">
+            
+            y3:<input type="number" id="y3" values="10">
+        </p>
+        <p>
+            x4:<input type="number" id="x4" values="400">
+            y4:<input type="number" id="y4" values="400">
+        </p>
+        <button type="button" onclick="runBezier()">Run!</button>
+        <button type="button" onclick="clearCanvas()">ClearCanvas</button>
+        <p id="test"></p>
+
+        <script>
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            function runBezier(){
+                var x1 = document.getElementById("x1").value;
+                var x2 = document.getElementById("x2").value;
+                var x3 = document.getElementById("x3").value;
+                var x4 = document.getElementById("x4").value;
+                var y1 = document.getElementById("y1").value;
+                var y2 = document.getElementById("y2").value;
+                var y3 = document.getElementById("y3").value;
+                var y4 = document.getElementById("y4").value;
+                drawCurve();
+
+                drawPoints(x1, y1);
+                drawPoints(x2, y2);
+                drawPoints(x3, y3);
+                drawPoints(x4, y4);
+                drawLines(x1, y1, x2, y2, x3, y3, x4, y4);
+            }
+            function drawCurve(){
+                var x1 = document.getElementById("x1").value;
+                var x2 = document.getElementById("x2").value;
+                var x3 = document.getElementById("x3").value;
+                var x4 = document.getElementById("x4").value;
+                var y1 = document.getElementById("y1").value;
+                var y2 = document.getElementById("y2").value;
+                var y3 = document.getElementById("y3").value;
+                var y4 = document.getElementById("y4").value;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4);
+                ctx.strokeStyle = "black";
+                ctx.stroke();  
+                // document.getElementById("test").innerHTML = "success";   
+            }
+            function drawPoints(x, y){
+
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, 2 * Math.PI);
+                ctx.strokeStyle = "blue";
+                ctx.stroke();
+            }
+            function drawLines(x1, y1, x2, y2, x3, y3, x4, y4){
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineTo(x3, y3);
+                ctx.lineTo(x4, y4);
+                ctx.strokeStyle = "blue";
+                ctx.stroke();
+            }
+            function clearCanvas(){
+                ctx.clearRect(0, 0, c.width, c.height);
+            }
+        </script>
+    </body>
+
+</html>
